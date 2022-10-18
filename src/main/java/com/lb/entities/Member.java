@@ -2,9 +2,12 @@ package com.lb.entities;
 
 public class Member {
 
-	private String mem_id;
+	private  String mem_id;
 	private String mem_name;
 	private String mem_addrs;
+	private String mem_addrs2;
+	private String mem_city;
+	private int mem_phno;
 	@Override
 	public String toString() {
 		return "Member [mem_id=" + mem_id + ", mem_name=" + mem_name + ", mem_addrs=" + mem_addrs + ", mem_addrs2="
@@ -19,10 +22,8 @@ public class Member {
 		this.mem_city = mem_city;
 		this.mem_phno = mem_phno;
 	}
-	private String mem_addrs2;
-	private String mem_city;
-	private int mem_phno;
-	public String getMem_id() {
+	
+	public  String getMem_id() {
 		return mem_id;
 	}
 	public void setMem_id(String mem_id) {

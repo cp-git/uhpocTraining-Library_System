@@ -22,14 +22,29 @@ public class BookServImpl implements BookServ {
 		return false;
 	}
 
-	public int createBook(Book book) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+//	public  createBook(Book book) {
+//		// TODO Auto-generated method stub
+//		BookRepo bookRepo = new BookRepo();
+//		bookRepo.insertBook(book);
+//		
+//	}
 
 	public List<Book> getBookDetails() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+//	public void create(Book book) {
+//		BookRepo bookRepo = new BookRepo();
+//		bookRepo.insert(book);
+//	}
+
+	public void createBook(Book book) {
+		// TODO Auto-generated method stub
+		BookRepo bookRepo = new BookRepo();
+		bookRepo.insertBook(book);
+	}
+
+	
 	
 }

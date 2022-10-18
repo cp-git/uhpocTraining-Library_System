@@ -15,9 +15,15 @@ import com.lb.exception.CPException;
 import com.lb.jdbc.DBManager;
 
 public class BookRepo {
-	
-public void insertEmployee(String bk_name, String bk_author) throws CPException {
+	DBManager dbm = null;
+	Connection con = null;
+	public static void main (String args[])
+	{
 		
+	}
+	
+public void insertBook(Book book)  {
+		System.out.println("inside insertEmployee in bookrepo");
 //		
 //		DBManager dbm = null;
 //		Connection con = null;
@@ -48,15 +54,22 @@ public void insertEmployee(String bk_name, String bk_author) throws CPException 
 //		} finally {
 //			dbm.closeConnection(con);
 //		}
-	DBManager dbm = DBManager.getDBManager();
+	DBManager dbm = null;
+	try {
+		dbm = DBManager.getDBManager();
+	} catch (CPException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
 	Connection con = null;
 	String insertQuery = "INSERT INTO book ( bk_name , bk_author) VALUES (?,?)";
 	PreparedStatement ps = null;
 	try {
 		con = dbm.getConnection();
 		ps = con.prepareStatement(insertQuery);
-		ps.setString(1, Book.getBk_name());
-		ps.setString(2, Book.getBk_author());
+		ps.setString(1, book.getBk_name());
+		ps.setString(2, book.getBk_author());
+		
 		ps.execute();
 		con.close();
 	} catch (Exception e) {
@@ -64,18 +77,18 @@ public void insertEmployee(String bk_name, String bk_author) throws CPException 
 		e.printStackTrace();
 	}
 }
-public List<Book> getCustomerDetails() throws CPException {
+public List <Book> getBook() throws CPException {
 	DBManager dbm = DBManager.getDBManager();
 	Connection con = null;
 	con = dbm.getConnection();
-	String dataQuery = "select * from customer";
+	String dataQuery = "select * from book ";
 	Statement stmt = null;
 	List<Book> listBook = new ArrayList<Book>();
 	try {
 		stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery(dataQuery);
 		while (rs.next()) {
-			int custId = rs.getInt("bk_id");
+			//int bk_Id = rs.getInt("bk_id");
 			String bookName = rs.getString("bk_name");
 			String bookAuthor = rs.getString("bk_author");
 			
@@ -88,5 +101,26 @@ public List<Book> getCustomerDetails() throws CPException {
 	}
 	return listBook;
 }
-	
+
+
+
+//public void insert(Book book) {
+//	String insertQuery = "INSERT INTO book (bk_name,bk_author) VALUES(?,?)";
+//	PreparedStatement ps = null;
+//	try {
+//		dbm = DBManager.getDBManager();
+//		con = dbm.getConnection();
+//		ps =con.prepareStatement(insertQuery);
+//		ps.setString(1, book.getBk_name());
+//		ps.setString(2, book.getBk_author());
+//		ps.execute();
+//	} catch (CPException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	} catch (SQLException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//	
+
 }

@@ -58,7 +58,7 @@ public class DBManager {
 		FileInputStream fs;
 		try {
 			props = new Properties();
-			fs = new FileInputStream("resources/dbcon.properties");
+			fs = new FileInputStream("src/main/resources/dbcon.properties");
 			props.load(fs);
 			/*
 			 * System.out.println(props.getProperty("dburl"));
