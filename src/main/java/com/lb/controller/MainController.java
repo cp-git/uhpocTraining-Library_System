@@ -72,7 +72,7 @@ public class MainController {
 				bookServ.createBook(book);
 //				book.setBk_id(12);
 				System.out.println(book.toString());
-////				int deptId = bookServ.createBook(book);
+////			
 ////				book.setBk_id(bk_id);
 //			//	bookHash.put(book.getBk_name(), book.getBk_author());
 //				bookHash.put(bookName, book);
@@ -97,7 +97,7 @@ public class MainController {
 				String memPhno = sc1.next();
 				
 			
-				System.out.println(bookName + " " + bookAuthor);
+				
 				
 				break;
 
