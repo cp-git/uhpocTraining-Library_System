@@ -1,7 +1,6 @@
 package com.lb.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 import com.lb.entities.Book;
@@ -9,8 +8,6 @@ import com.lb.entities.Member;
 import com.lb.exception.CPException;
 import com.lb.impl.BookServImpl;
 import com.lb.impl.MemServImpl;
-import com.lb.jdbc.DBManager;
-import com.lb.jdbc.MessageBundle;
 import com.lb.serv.BookServ;
 import com.lb.serv.MemServ;
 
@@ -19,17 +16,16 @@ public class MainController {
 //	private HashMap<String, Customer> custCache = null;
 //	private HashMap<String, Customer> deptCache = null;
 //	private HashMap<String, Customer> prodCache = null;
-	
-	private static HashMap<String , Book> bookHash = new HashMap<String, Book>();
-	private static HashMap<String ,Member> memHash = new HashMap<String , Member>();
-	
-	private static void loadCache()
-	{
+
+	private static HashMap<String, Book> bookHash = new HashMap<String, Book>();
+	private static HashMap<String, Member> memHash = new HashMap<String, Member>();
+
+	private static void loadCache() {
 		BookServ bookServ = new BookServImpl();
 		MemServ memServ = new MemServImpl();
 		memHash = memServ.display();
 		System.out.println(memServ);
-		
+
 		bookHash = bookServ.display();
 		System.out.println(bookHash);
 	}
@@ -38,11 +34,12 @@ public class MainController {
 //	}
 
 	public static void main(String[] args) throws CPException {
-		//MessageBundle mb = MessageBundle.getBundle();
-		
-		if ( (bookHash != null || bookHash.size() == 0)) {
-			loadCache();
-		}
+		// MessageBundle mb = MessageBundle.getBundle();
+
+		// MessageBundle mb = MessageBundle.getBundle();
+//		if ((map != null || map.size() == 0) || (customerHash != null || customerHash.size() == 0)) {
+		loadCache();
+//		}
 		while (true) {
 			System.out.println("============= Main Menu ============");
 			System.out.println("1. Add Book Details");
@@ -54,35 +51,63 @@ public class MainController {
 			int option = sc1.nextInt();
 			switch (option) {
 			case 1:
-				
-				BookServ bookServ = new BookServImpl();
-				bookHash = bookServ.display();
-				//System.out.println(bookHash);
-				
-				System.out.println("Enter Book Name");
-				String bookName = sc1.next();
-				System.out.println("Enter Book Author");
-				String bookAuthor = sc1.next();
-				
-			
-				System.out.println(bookName + " " + bookAuthor);
+				while (true) {
 
-				
-				Book book = new Book(bookName, bookAuthor);
-				bookServ.createBook(book);
-//				book.setBk_id(12);
-				System.out.println(book.toString());
-////			
-////				book.setBk_id(bk_id);
-//			//	bookHash.put(book.getBk_name(), book.getBk_author());
-//				bookHash.put(bookName, book);
-//				
+					try {
+
+						BookServ bookServ = new BookServImpl();
+						bookHash = bookServ.display();
+						// System.out.println(bookHash);
+
+						System.out.println("Enter Book Name");
+						String bookName = sc1.next();
+						System.out.println("Enter Book Author");
+						String bookAuthor = sc1.next();
+
+						// System.out.println(bookName + " " + bookAuthor);
+
+//				Book book = new Book(bookName, bookAuthor);
+//				bookServ.createBook(book)
+						// System.out.println(book.toString());
+
+						if (bookHash.containsKey(bookName)) {
+							System.out.println("Book is already available");
+						} else {
+							Book book = new Book(bookName, bookAuthor);
+
+							bookServ.createBook(book);
+							// book.setBkId(bkId);
+							// book.setBk_id(bk_id);
+							// bookHash.put(book.getBk_name(), book.getBk_author());
+							bookHash.put(bookName, book);
+//								bookHash.put(bookName, book);
+
+							System.out.println("Book inserted successfully");
+							// System.out.println(prodCache);
+						}
+////				
+					} catch (Exception e) {
+						e.printStackTrace();
+						break;
+					}
+
+					System.out.println(
+							"Do you want to add another book [Y]es or [N]o?\n Press any other key for main menu");
+					String ch = sc1.next();
+					sc1.nextLine();
+					if (ch.equals("Y") || ch.equals("y")) {
+						continue;
+					} else {
+						break;
+					}
+
+				}
 				break;
 			case 2:
-				
+
 				MemServ memServ = new MemServImpl();
 				memHash = memServ.display();
-				
+
 				System.out.println("Enter Member ID");
 				String memId = sc1.next();
 				System.out.println("Enter Member Name");
@@ -94,17 +119,25 @@ public class MainController {
 				System.out.println("Enter Member City");
 				String memCity = sc1.next();
 				System.out.println("Enter Member PhoneNumber");
-				String memPhno = sc1.next();
-				
-			
-				
-				
+				long memPhno = sc1.nextLong();
+
+				System.out.println(
+						memId + " " + memName + " " + memAddrs + " " + memAddrs + " " + memCity + " " + memPhno + " ");
+				Member member = new Member(memId, memName, memAddrs, memAddrs2, memCity, memPhno);
+				memServ.createMember(member);
+
 				break;
 
 			case 3:
-				break;
+
+				while (true) {
+					System.out.println("hello");
+
+					break;
+				}
+//				break;
 			case 4:
-				
+
 				break;
 			case 5:
 				System.out.println("Please enter options between 1 to 4 ");

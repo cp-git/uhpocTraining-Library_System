@@ -19,9 +19,11 @@ public class DBManager {
 
 	/**
 	 * Private constructor
-	 * @throws CPException 
+	 * 
+	 * @throws CPException
 	 */
 	private DBManager() throws CPException {
+		mb = MessageBundle.getBundle();
 		loadConnProperty();
 		initialization();
 
@@ -100,6 +102,7 @@ public class DBManager {
 				throw new CPException("003", mb.getMessage("003") + exp.getMessage());
 			}
 		} else {
+
 			throw new CPException("001", mb.getMessage("001"));
 		}
 		printConSize();

@@ -7,13 +7,13 @@ public class Member {
 	private String mem_addrs;
 	private String mem_addrs2;
 	private String mem_city;
-	private int mem_phno;
+	private long mem_phno;
 	@Override
 	public String toString() {
 		return "Member [mem_id=" + mem_id + ", mem_name=" + mem_name + ", mem_addrs=" + mem_addrs + ", mem_addrs2="
 				+ mem_addrs2 + ", mem_city=" + mem_city + ", mem_phno=" + mem_phno + "]";
 	}
-	public Member(String mem_id, String mem_name, String mem_addrs, String mem_addrs2, String mem_city, int mem_phno) {
+	public Member(String mem_id, String mem_name, String mem_addrs, String mem_addrs2, String mem_city, long mem_phno) {
 		super();
 		this.mem_id = mem_id;
 		this.mem_name = mem_name;
@@ -23,6 +23,9 @@ public class Member {
 		this.mem_phno = mem_phno;
 	}
 	
+	public Member(String memId, String memName, String memAddrs, String memAddrs2, String memCity, Long memPhno) {
+		// TODO Auto-generated constructor stub
+	}
 	public  String getMem_id() {
 		return mem_id;
 	}
@@ -53,7 +56,7 @@ public class Member {
 	public void setMem_city(String mem_city) {
 		this.mem_city = mem_city;
 	}
-	public int getMem_phno() {
+	public long getMem_phno() {
 		return mem_phno;
 	}
 	public void setMem_phno(int mem_phno) {

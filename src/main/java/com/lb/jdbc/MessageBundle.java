@@ -1,6 +1,5 @@
 package com.lb.jdbc;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MessageBundle {
@@ -16,7 +15,8 @@ public class MessageBundle {
 	private void loadBundle() {
 		try {
 			System.out.println("Inside Load bundle");
-			rb = ResourceBundle.getBundle(RESOURCE_BUNDLE, new Locale("en"), this.getClass().getClassLoader());
+//			rb = ResourceBundle.getBundle(RESOURCE_BUNDLE, new Locale("en_IN"), this.getClass().getClassLoader());
+			rb = ResourceBundle.getBundle(RESOURCE_BUNDLE);
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}

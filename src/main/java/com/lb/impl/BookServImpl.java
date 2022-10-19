@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.lb.entities.Book;
+import com.lb.exception.CPException;
 import com.lb.repo.BookRepo;
 import com.lb.serv.BookServ;
 
@@ -14,7 +15,16 @@ public class BookServImpl implements BookServ {
 
 	public HashMap<String, Book> display() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+			for (Book book : bookRepo.getBookDetails()) {
+				bookHash.put(book.getBk_name(), book);
+			}
+		} catch (CPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bookHash;
 	}
 
 	public boolean isCacheEmpty() {
@@ -31,7 +41,13 @@ public class BookServImpl implements BookServ {
 
 	public List<Book> getBookDetails() {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			return bookRepo.getBookDetails();
+		} catch (CPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return getBookDetails();
 	}
 	
 //	public void create(Book book) {

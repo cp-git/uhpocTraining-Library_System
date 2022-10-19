@@ -1,3 +1,0 @@
-001 = Pool is empty , wait for some time to get the connection
-002 = Property file - resources/dbcon.properties not found
-003 = Connection cereation failed  - due to 
