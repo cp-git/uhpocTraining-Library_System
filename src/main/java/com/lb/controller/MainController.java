@@ -18,15 +18,16 @@ public class MainController {
 //	private HashMap<String, Customer> prodCache = null;
 
 	private static HashMap<String, Book> bookHash = new HashMap<String, Book>();
-	private static HashMap<String, Member> memHash = new HashMap<String, Member>();
+	private static HashMap<Long, Member> memHash = new HashMap<Long, Member>();
 
 	private static void loadCache() {
 		BookServ bookServ = new BookServImpl();
 		MemServ memServ = new MemServImpl();
 		memHash = memServ.display();
-		System.out.println(memServ);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
+		System.out.println(memHash);
 
-		bookHash = bookServ.display();
+		bookHash = bookServ.display1();
 		System.out.println(bookHash);
 	}
 //	public MainMenu() {
@@ -36,10 +37,8 @@ public class MainController {
 	public static void main(String[] args) throws CPException {
 		// MessageBundle mb = MessageBundle.getBundle();
 
-		// MessageBundle mb = MessageBundle.getBundle();
-//		if ((map != null || map.size() == 0) || (customerHash != null || customerHash.size() == 0)) {
 		loadCache();
-//		}
+
 		while (true) {
 			System.out.println("============= Main Menu ============");
 			System.out.println("1. Add Book Details");
@@ -56,7 +55,7 @@ public class MainController {
 					try {
 
 						BookServ bookServ = new BookServImpl();
-						bookHash = bookServ.display();
+						bookHash = bookServ.display1();
 						// System.out.println(bookHash);
 
 						System.out.println("Enter Book Name");
@@ -83,7 +82,7 @@ public class MainController {
 //								bookHash.put(bookName, book);
 
 							System.out.println("Book inserted successfully");
-							// System.out.println(prodCache);
+
 						}
 ////				
 					} catch (Exception e) {
@@ -105,27 +104,59 @@ public class MainController {
 				break;
 			case 2:
 
-				MemServ memServ = new MemServImpl();
-				memHash = memServ.display();
+				while (true) {
 
-				System.out.println("Enter Member ID");
-				String memId = sc1.next();
-				System.out.println("Enter Member Name");
-				String memName = sc1.next();
-				System.out.println("Enter Member Address");
-				String memAddrs = sc1.next();
-				System.out.println("Enter Member Second Address");
-				String memAddrs2 = sc1.next();
-				System.out.println("Enter Member City");
-				String memCity = sc1.next();
-				System.out.println("Enter Member PhoneNumber");
-				long memPhno = sc1.nextLong();
+					try {
+						MemServ memServ = new MemServImpl();
+						memHash = memServ.display();
 
-				System.out.println(
-						memId + " " + memName + " " + memAddrs + " " + memAddrs + " " + memCity + " " + memPhno + " ");
-				Member member = new Member(memId, memName, memAddrs, memAddrs2, memCity, memPhno);
-				memServ.createMember(member);
+						System.out.println("Enter Member ID");
+						String memId = sc1.next();
+						System.out.println("Enter Member Name");
+						String memName = sc1.next();
+						System.out.println("Enter Member Address");
+						String memAddrs = sc1.next();
+						System.out.println("Enter Member Second Address");
+						String memAddrs2 = sc1.next();
+						System.out.println("Enter Member City");
+						String memCity = sc1.next();
+						System.out.println("Enter Member PhoneNumber");
+						long memPhno = sc1.nextLong();
 
+						System.out.println(memId + " " + memName + " " + memAddrs + " " + memAddrs + " " + memCity + " "
+								+ memPhno + " ");
+						Member member = new Member(memId, memName, memAddrs, memAddrs2, memCity, memPhno);
+						memServ.createMember(member);
+
+						if (memHash.containsKey(memPhno)) {
+							System.out.println("Member is already available");
+						} else {
+
+							Member mem = new Member(memId, memName, memAddrs, memAddrs2, memCity, memPhno);
+							memServ.createMember(mem);
+							mem.getMem_phno();
+
+							memHash.put(memPhno, mem);
+//								bookHash.put(bookName, book);
+
+							System.out.println("Member inserted successfully");
+							// System.out.println(prodCache);
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+						break;
+					}
+					System.out.println(
+							"Do you want to add another member [Y]es or [N]o?\n Press any other key for main menu");
+					String ch = sc1.next();
+					sc1.nextLine();
+					if (ch.equals("Y") || ch.equals("y")) {
+						continue;
+					} else {
+						break;
+					}
+				}
 				break;
 
 			case 3:

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.lb.entities.Book;
 import com.lb.exception.CPException;
@@ -14,6 +16,7 @@ public class BookRepo {
 	DBManager dbm = null;
 	Connection con = null;
 	Statement stmt = null;
+	PreparedStatement ps = null;
 	ResultSet rs = null;
 
 	public static void main(String args[]) {
@@ -21,7 +24,7 @@ public class BookRepo {
 	}
 
 	public void insertBook(Book book) {
-		System.out.println("inside insertEmployee in bookrepo");
+		System.out.println("inside insertbook in bookrepo");
 //		
 //		DBManager dbm = null;
 //		Connection con = null;
@@ -69,10 +72,12 @@ public class BookRepo {
 			ps.setString(2, book.getBk_author());
 
 			ps.execute();
-			con.close();
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			dbm.closeConnection(con);
 		}
 	}
 
@@ -114,6 +119,43 @@ public class BookRepo {
 			dbm.closeConnection(con);
 		}
 		return bkId;
+	}
+
+	public List<Book> getBookDetails() {
+		// TODO Auto-generated method stub
+		List<Book> book = new ArrayList<Book>();
+		String DataQuery = "Select * from book";
+		try {
+			dbm = DBManager.getDBManager();
+		} catch (CPException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+
+			con = dbm.getConnection();
+			ps = con.prepareStatement(DataQuery);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				// int bkId = rs.getInt("bk_id");
+				String bookName = rs.getString("bk_name");
+				String bookAuthor = rs.getString("bk_author");
+
+				Book bk = new Book(bookName, bookAuthor);
+
+				book.add(bk);
+				// System.out.println(customer);
+
+			} // while--Loop Close
+
+		} // try block close
+		catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbm.closeConnection(con);
+
+		}
+		return book;
 	}
 
 //public void insert(Book book) {
