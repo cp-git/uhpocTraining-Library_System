@@ -39,7 +39,7 @@ public class MemRepo {
 			psmt.setLong(6, member.getMem_phno());
 
 			psmt.executeUpdate();
-			con.close();
+			// con.close();
 		}
 //		catch (PSQLException e) {
 //			// TODO Auto-generated catch block

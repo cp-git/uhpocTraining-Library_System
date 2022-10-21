@@ -5,11 +5,14 @@ import java.util.Scanner;
 
 import com.lb.entities.Book;
 import com.lb.entities.Member;
+import com.lb.entities.Transaction;
 import com.lb.exception.CPException;
 import com.lb.impl.BookServImpl;
 import com.lb.impl.MemServImpl;
+import com.lb.impl.TransServImpl;
 import com.lb.serv.BookServ;
 import com.lb.serv.MemServ;
+import com.lb.serv.TransServ;
 
 public class MainController {
 
@@ -19,10 +22,13 @@ public class MainController {
 
 	private static HashMap<String, Book> bookHash = new HashMap<String, Book>();
 	private static HashMap<Long, Member> memHash = new HashMap<Long, Member>();
+	private static HashMap<String, Transaction> transHash = new HashMap<String, Transaction>();
 
 	private static void loadCache() {
 		BookServ bookServ = new BookServImpl();
 		MemServ memServ = new MemServImpl();
+		TransServ transserv = new TransServImpl();
+
 		memHash = memServ.display();
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
 		System.out.println(memHash);
@@ -125,8 +131,8 @@ public class MainController {
 
 						System.out.println(memId + " " + memName + " " + memAddrs + " " + memAddrs + " " + memCity + " "
 								+ memPhno + " ");
-						Member member = new Member(memId, memName, memAddrs, memAddrs2, memCity, memPhno);
-						memServ.createMember(member);
+//						Member member = new Member(memId, memName, memAddrs, memAddrs2, memCity, memPhno);
+//						memServ.createMember(member);
 
 						if (memHash.containsKey(memPhno)) {
 							System.out.println("Member is already available");
@@ -162,11 +168,56 @@ public class MainController {
 			case 3:
 
 				while (true) {
-					System.out.println("hello");
 
-					break;
+					try {
+
+						TransServ transserv = new TransServImpl();
+						transHash = transserv.d
+//					
+
+						System.out.println("Enter Member ID");
+						String memId = sc1.next();
+						System.out.println("Enter Member Name");
+						String memName = sc1.next();
+						System.out.println("Enter Member PhoneNumber");
+						long memPhno = sc1.nextLong();
+
+						System.out.println(memId + " " + memName + " " + memPhno);
+//						Member member = new Member(memId, memName, memAddrs, memAddrs2, memCity, memPhno);
+//						memServ.createMember(member);
+						java.util.Date today = new java.util.Date();
+						java.sql.Date sqlDate = new java.sql.Date(today.getTime());
+						System.out.println(sqlDate);
+						if (memHash.containsKey(memPhno)) {
+							System.out.println("Member is already available");
+						} else {
+
+//							Member mem = new Member(memId, memName, memAddrs, memAddrs2, memCity, memPhno);
+//							memServ.createMember(mem);
+//							mem.getMem_phno();
+
+//							memHash.put(memPhno, mem);
+//								bookHash.put(bookName, book);
+
+							System.out.println("Member inserted successfully");
+							// System.out.println(prodCache);
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+						break;
+					}
+					System.out.println(
+							"Do you want to add another member [Y]es or [N]o?\n Press any other key for main menu");
+					String ch = sc1.next();
+					sc1.nextLine();
+					if (ch.equals("Y") || ch.equals("y")) {
+						continue;
+					} else {
+						break;
+					}
 				}
-//				break;
+				break;
 			case 4:
 
 				break;
