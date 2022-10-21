@@ -172,7 +172,7 @@ public class MainController {
 					try {
 
 						TransServ transserv = new TransServImpl();
-						transHash = transserv.d
+						// transHash = transserv.d
 //					
 
 						System.out.println("Enter Member ID");
@@ -192,13 +192,7 @@ public class MainController {
 							System.out.println("Member is already available");
 						} else {
 
-//							Member mem = new Member(memId, memName, memAddrs, memAddrs2, memCity, memPhno);
-//							memServ.createMember(mem);
-//							mem.getMem_phno();
-
-//							memHash.put(memPhno, mem);
-//								bookHash.put(bookName, book);
-
+//							
 							System.out.println("Member inserted successfully");
 							// System.out.println(prodCache);
 						}
