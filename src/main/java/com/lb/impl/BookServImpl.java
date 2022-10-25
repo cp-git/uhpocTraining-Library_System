@@ -26,35 +26,14 @@ public class BookServImpl implements BookServ {
 		return false;
 	}
 
-//	public  createBook(Book book) {
-//		// TODO Auto-generated method stub
-//		BookRepo bookRepo = new BookRepo();
-//		bookRepo.insertBook(book);
-//		
-//	}
-
 	public List<Book> getBookDetails() {
 		return bookRepo.getBookDetails();
 	}
 
-//	public void create(Book book) {
-//		BookRepo bookRepo = new BookRepo();
-//		bookRepo.insert(book);
-//	}
-
 	public void createBook(Book book) {
-		// TODO Auto-generated method stub
+
 		BookRepo bookRepo = new BookRepo();
 		bookRepo.insertBook(book);
 	}
-
-//	public HashMap<String, Book> display() {
-//		// TODO Auto-generated method stub
-//		for (Book book : bookRepo.getBookDetails()) {
-//			bookHash.put(book.getBk_name(), book);
-//
-//		}
-//		return bookHash;
-//	}
 
 }

@@ -16,10 +16,6 @@ import com.lb.serv.TransServ;
 
 public class MainController {
 
-//	private HashMap<String, Customer> custCache = null;
-//	private HashMap<String, Customer> deptCache = null;
-//	private HashMap<String, Customer> prodCache = null;
-
 	private static HashMap<String, Book> bookHash = new HashMap<String, Book>();
 	private static HashMap<Long, Member> memHash = new HashMap<Long, Member>();
 	private static HashMap<String, Transaction> transHash = new HashMap<String, Transaction>();
@@ -29,12 +25,15 @@ public class MainController {
 		MemServ memServ = new MemServImpl();
 		TransServ transserv = new TransServImpl();
 
+		transHash = transserv.display(null);
+		System.out.println(transHash);
+
 		memHash = memServ.display();
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
 		System.out.println(memHash);
 
 		bookHash = bookServ.display1();
-		System.out.println(bookHash);
+//		System.out.println(bookHash);
 	}
 //	public MainMenu() {
 ////		initCache();
@@ -43,7 +42,7 @@ public class MainController {
 	public static void main(String[] args) throws CPException {
 		// MessageBundle mb = MessageBundle.getBundle();
 
-		loadCache();
+		// loadCache();
 
 		while (true) {
 			System.out.println("============= Main Menu ============");
@@ -61,7 +60,7 @@ public class MainController {
 					try {
 
 						BookServ bookServ = new BookServImpl();
-						bookHash = bookServ.display1();
+						// bookHash = bookServ.display1();
 						// System.out.println(bookHash);
 
 						System.out.println("Enter Book Name");
@@ -143,7 +142,6 @@ public class MainController {
 							mem.getMem_phno();
 
 							memHash.put(memPhno, mem);
-//								bookHash.put(bookName, book);
 
 							System.out.println("Member inserted successfully");
 							// System.out.println(prodCache);

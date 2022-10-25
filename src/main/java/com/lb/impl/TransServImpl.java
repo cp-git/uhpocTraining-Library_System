@@ -36,24 +36,22 @@ public class TransServImpl implements TransServ {
 		return false;
 	}
 
-	public void createMember(Member member) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public List<Member> getMemberDetails() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-//	public HashMap<String, Transaction> display() {
-//		// TODO Auto-generated method stub
-//
-//		for (Transaction trans : transRepo.getalltransDetailsbyId(memId)) {
-//			List<Transaction> allTransDetails = transRepo.getalltransDetailsbyId(memId);
-//			// memHash.put(member.getMem_phno(), member);
-//
-//		}
-//		return null;
-//	}
+	public HashMap<String, Transaction> display(String memId) {
+		// TODO Auto-generated method stub
+
+		// String memId = null;
+		for (Transaction trans : transRepo.getalltransDetailsbyId(memId)) {
+			// List<Transaction> allTransDetails = transRepo.getalltransDetailsbyId(memId);
+			// memHash.put(member.getMem_phno(), member);
+			transHash.put(memId, trans);
+
+		}
+		return transHash;
+	}
+
 }

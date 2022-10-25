@@ -26,8 +26,8 @@ public class MemRepo {
 		String insertQuery = "INSERT INTO member ( mem_id , mem_name , mem_addrs , mem_addrs2 , mem_city, mem_phno) VALUES (?,?,?,?,?,?)";
 		PreparedStatement psmt = null;
 		try {
-			System.out.println(member.getMem_id() + " " + member.getMem_name() + " " + member.getMem_addrs() + " "
-					+ member.getMem_addrs2() + " " + member.getMem_city() + " " + member.getMem_phno() + " ");
+//			System.out.println(member.getMem_id() + " " + member.getMem_name() + " " + member.getMem_addrs() + " "
+//					+ member.getMem_addrs2() + " " + member.getMem_city() + " " + member.getMem_phno() + " ");
 
 			con = dbm.getConnection();
 			psmt = con.prepareStatement(insertQuery);

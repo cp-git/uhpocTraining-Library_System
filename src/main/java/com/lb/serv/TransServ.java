@@ -1,5 +1,6 @@
 package com.lb.serv;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.lb.entities.Transaction;
@@ -10,7 +11,7 @@ public interface TransServ {
 
 	List<Transaction> getalltransDetailsbyId(String memId);
 
-	// HashMap<Integer, Invoice> display();
+	public HashMap<String, Transaction> display(String memId);
 
 	boolean isCacheEmpty();
 
