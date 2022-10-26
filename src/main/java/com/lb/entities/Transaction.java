@@ -9,31 +9,41 @@ public class Transaction {
 	private String mem_id;
 	private String mem_status;
 	private Date _date;
+	private int bookId;
+	private String memberId;
+	private String memberStatus;
 
 	@Override
 	public String toString() {
-		return "Transaction [trans_id=" + trans_id + "]";
+		return "Transaction [bk_id=" + bk_id + ", trans_id=" + trans_id + ", mem_id=" + mem_id + ", mem_status="
+				+ mem_status + ", _date=" + _date + "]";
 	}
 
-	public Transaction(int bk_id, String mem_id, String mem_status, Date _date) {
-		super();
-		this.bk_id = bk_id;
-		this.mem_id = mem_id;
-		this.mem_status = mem_status;
-		this._date = _date;
-	}
+//	public Transaction(int bk_id, String mem_id, String mem_status, Date _date) {
+//		super();
+//		this.bk_id = bk_id;
+//		this.mem_id = mem_id;
+//		this.mem_status = mem_status;
+//		this._date = _date;
+//	}
 
 	public int getBk_id() {
 		return bk_id;
 	}
 
-	public Transaction(int bk_id, int trans_id, String mem_id, String mem_status, Date _date) {
+	public Transaction(int trans_id, int bk_id, String mem_id, String mem_status, Date _date) {
 		super();
 		this.bk_id = bk_id;
 		this.trans_id = trans_id;
 		this.mem_id = mem_id;
 		this.mem_status = mem_status;
 		this._date = _date;
+	}
+
+	public Transaction(int bk_id, String mem_id, String mem_status) {
+		this.bk_id = bk_id;
+		this.mem_id = mem_id;
+		this.mem_status = mem_status;
 	}
 
 	public int getTrans_id() {

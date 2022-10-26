@@ -7,11 +7,13 @@ import com.lb.entities.Book;
 
 public interface BookServ {
 
-	void createBook(Book book);
+	int createBook(Book book);
 
 	List<Book> getBookDetails();
 
 	HashMap<String, Book> display1();
+
+	public int getLastBookId();
 
 	boolean isCacheEmpty();
 	// void create(Book book);

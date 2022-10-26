@@ -21,11 +21,14 @@ public class BookRepo {
 
 	public static void main(String args[]) {
 
+		BookRepo bookRepo = new BookRepo();
+		System.out.println(bookRepo.getLastBookId());
 	}
 
-	public void insertBook(Book book) {
+	public int insertBook(Book book) {
 		System.out.println("inside insertbook in bookrepo");
 		DBManager dbm = null;
+		int bookId = 0;
 		try {
 			dbm = DBManager.getDBManager();
 		} catch (CPException e1) {
@@ -42,13 +45,14 @@ public class BookRepo {
 			ps.setString(2, book.getBk_author());
 
 			ps.execute();
-
+			bookId = getLastBookId();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			dbm.closeConnection(con);
 		}
+		return bookId;
 	}
 
 //public int getBookId(int bk_id) throws CPException, SQLException {
@@ -63,7 +67,7 @@ public class BookRepo {
 //	{
 //			int BookId = rs.getInt("bk_id");
 //
-////			System.out.println(db_emp_id);
+///
 //
 //			
 //		return BookId;
@@ -71,15 +75,17 @@ public class BookRepo {
 //	return 0;
 
 	public int getLastBookId() {
-		int bkId = 0;
+		int bkId;
 		String insertQuery = "select max(bk_id) from book";
 		try {
+			dbm = DBManager.getDBManager();
 			con = dbm.getConnection();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(insertQuery);
 			while (rs.next()) {
-				bkId = rs.getInt(bkId);
+				return bkId = rs.getInt(1);
 			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,12 +94,12 @@ public class BookRepo {
 		} finally {
 			dbm.closeConnection(con);
 		}
-		return bkId;
+		return 0;
 	}
 
 	public List<Book> getBookDetails() {
 		// TODO Auto-generated method stub
-		List<Book> book = new ArrayList<Book>();
+		List<Book> bookList = new ArrayList<Book>();
 		String DataQuery = "Select * from book";
 		try {
 			dbm = DBManager.getDBManager();
@@ -107,13 +113,13 @@ public class BookRepo {
 			ps = con.prepareStatement(DataQuery);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				// int bkId = rs.getInt("bk_id");
+				int bkId = rs.getInt("bk_id");
 				String bookName = rs.getString("bk_name");
 				String bookAuthor = rs.getString("bk_author");
 
-				Book bk = new Book(bookName, bookAuthor);
+				Book bk = new Book(bkId, bookName, bookAuthor);
 
-				book.add(bk);
+				bookList.add(bk);
 				// System.out.println(customer);
 
 			} // while--Loop Close
@@ -125,7 +131,7 @@ public class BookRepo {
 			dbm.closeConnection(con);
 
 		}
-		return book;
+		return bookList;
 	}
 
 }

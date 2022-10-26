@@ -1,6 +1,6 @@
 package com.lb.impl;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lb.entities.Member;
@@ -11,14 +11,14 @@ import com.lb.serv.TransServ;
 
 public class TransServImpl implements TransServ {
 
-	HashMap<String, Transaction> transHash = new HashMap<String, Transaction>();
+	List<Transaction> transHash = new ArrayList<Transaction>();
 	TransRepo transRepo = new TransRepo();
 
 	public void CreateTrans(Transaction trans) {
 
 		TransRepo transRepo = new TransRepo();
 		try {
-			transRepo.insertTrans(trans);
+			transRepo.addTransDetails(trans);
 		} catch (CPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,14 +41,15 @@ public class TransServImpl implements TransServ {
 		return null;
 	}
 
-	public HashMap<String, Transaction> display(String memId) {
+	public List<Transaction> display(String memId) {
 		// TODO Auto-generated method stub
 
 		// String memId = null;
 		for (Transaction trans : transRepo.getalltransDetailsbyId(memId)) {
 			// List<Transaction> allTransDetails = transRepo.getalltransDetailsbyId(memId);
 			// memHash.put(member.getMem_phno(), member);
-			transHash.put(memId, trans);
+
+			transHash.add(trans);
 
 		}
 		return transHash;

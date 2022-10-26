@@ -22,10 +22,12 @@ public class TransRepo {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 
-	public void insertTrans(Transaction trans) throws CPException {
+	public void addTransDetails(Transaction trans) throws CPException {
+		dbm = DBManager.getDBManager();
 		con = dbm.getConnection();
+
 		// String
-		String insertTrans = "INSERT INTO transaction(bk_id ,mem_id ,mem_status ,date ) VALUES(?,?,?,?)";
+		String insertTrans = "INSERT INTO transaction(bk_id ,mem_id ,mem_status) VALUES(?,?,?)";
 
 		try {
 
@@ -34,8 +36,6 @@ public class TransRepo {
 			ps.setInt(1, trans.getBk_id());
 			ps.setString(2, trans.getMem_id());
 			ps.setString(3, trans.getMem_status());
-			ps.setDate(4, trans.get_date());
-			ps.setInt(5, trans.getTrans_id());
 
 //			ps.setInt(1, trans.getTrans_id());
 //			ps.setInt(2, trans.getBk_id());
@@ -54,9 +54,8 @@ public class TransRepo {
 
 	}
 
-//	public List<Transaction> gettransDetails() {
-//		
-//	
+//	public List<Transaction> addtransDetails() {
+//
 //		List<Transaction> transaction = new ArrayList<Transaction>();
 //		String DataQuery = "Select * from transaction ";
 //
@@ -67,22 +66,20 @@ public class TransRepo {
 //			rs = ps.executeQuery();
 //			while (rs.next()) {
 //
-//				int transId  = rs.getInt("trans_id");
+//				int transId = rs.getInt("trans_id");
 //				int bkId = rs.getInt("bk_id");
 //				String memId = rs.getString("mem_id");
 //				String memStatus = rs.getString("mem_status");
 //				Date transDate = rs.getDate("date");
-//				
-//				
 //
-//				Transaction trans = new Transaction(transId, bkId, memId, memStatus,transDate);
+//				Transaction trans = new Transaction(transId, bkId, memId, memStatus, transDate);
 //				transaction.add(trans);
-//				
+//
 //				System.out.println(transaction);
 //
 //			} // while--Loop Close
 //
-//		}// try block close
+//		} // try block close
 //		catch (Exception e) {
 //			e.printStackTrace();
 //		} finally {
@@ -96,7 +93,13 @@ public class TransRepo {
 	public List<Transaction> getalltransDetailsbyId(String memId) {
 		List<Transaction> allTransDetails = new ArrayList<Transaction>();
 
-		String getQuery = "SELECT * from transaction where mem_id=?";
+		String getQuery = "SELECT * from transaction where mem_id=? ORDER BY trans_id";
+		try {
+			dbm = DBManager.getDBManager();
+		} catch (CPException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			con = dbm.getConnection();
 
@@ -114,7 +117,7 @@ public class TransRepo {
 				Transaction trans = new Transaction(transId, bkId, memId, memStatus, transDate);
 				allTransDetails.add(trans);
 
-				System.out.println(trans.toString());
+				// System.out.println("@@@@@@@@@@@@@@@@@@@@@@@" + allTransDetails);
 			}
 
 		} catch (SQLException e) {

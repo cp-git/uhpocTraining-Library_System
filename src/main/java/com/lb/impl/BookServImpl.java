@@ -30,10 +30,19 @@ public class BookServImpl implements BookServ {
 		return bookRepo.getBookDetails();
 	}
 
-	public void createBook(Book book) {
+	public int createBook(Book book) {
 
 		BookRepo bookRepo = new BookRepo();
-		bookRepo.insertBook(book);
+		int bookId = bookRepo.insertBook(book);
+
+		return bookId;
+	}
+
+	public int getLastBookId() {
+		this.bookRepo = new BookRepo();
+
+		return bookRepo.getLastBookId();
+
 	}
 
 }

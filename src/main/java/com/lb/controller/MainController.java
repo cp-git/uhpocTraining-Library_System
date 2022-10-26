@@ -1,6 +1,8 @@
 package com.lb.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import com.lb.entities.Book;
@@ -18,15 +20,12 @@ public class MainController {
 
 	private static HashMap<String, Book> bookHash = new HashMap<String, Book>();
 	private static HashMap<Long, Member> memHash = new HashMap<Long, Member>();
-	private static HashMap<String, Transaction> transHash = new HashMap<String, Transaction>();
+	private static List<Transaction> transHash = new ArrayList<>();
 
 	private static void loadCache() {
 		BookServ bookServ = new BookServImpl();
 		MemServ memServ = new MemServImpl();
 		TransServ transserv = new TransServImpl();
-
-		transHash = transserv.display(null);
-		System.out.println(transHash);
 
 		memHash = memServ.display();
 //		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -42,7 +41,7 @@ public class MainController {
 	public static void main(String[] args) throws CPException {
 		// MessageBundle mb = MessageBundle.getBundle();
 
-		// loadCache();
+		loadCache();
 
 		while (true) {
 			System.out.println("============= Main Menu ============");
@@ -79,9 +78,12 @@ public class MainController {
 						} else {
 							Book book = new Book(bookName, bookAuthor);
 
-							bookServ.createBook(book);
-							// book.setBkId(bkId);
-							// book.setBk_id(bk_id);
+							int bookId = bookServ.createBook(book);
+							System.out.println(book);
+							System.out.println(bookId);
+							book.setBk_id(bookId);
+//							 
+//							 book.setBk_id(bk_id);
 							// bookHash.put(book.getBk_name(), book.getBk_author());
 							bookHash.put(bookName, book);
 //								bookHash.put(bookName, book);
@@ -151,8 +153,7 @@ public class MainController {
 						e.printStackTrace();
 						break;
 					}
-					System.out.println(
-							"Do you want to add another member [Y]es or [N]o?\n Press any other key for main menu");
+					System.out.println(" [Y]es or [N]o?\n Press any other key for main menu");
 					String ch = sc1.next();
 					sc1.nextLine();
 					if (ch.equals("Y") || ch.equals("y")) {
@@ -169,30 +170,106 @@ public class MainController {
 
 					try {
 
-						TransServ transserv = new TransServImpl();
-						// transHash = transserv.d
-//					
-
+//						TransServ transserv = new TransServImpl();
+//						transHash = transserv.display("MEM006");
+//						System.out.println(transHash);
+						BookServ bookServ = new BookServImpl();
 						System.out.println("Enter Member ID");
 						String memId = sc1.next();
-						System.out.println("Enter Member Name");
-						String memName = sc1.next();
 						System.out.println("Enter Member PhoneNumber");
 						long memPhno = sc1.nextLong();
 
-						System.out.println(memId + " " + memName + " " + memPhno);
-//						Member member = new Member(memId, memName, memAddrs, memAddrs2, memCity, memPhno);
-//						memServ.createMember(member);
+						System.out.println(memId + "  " + memPhno);
+						Member member = memHash.get(memPhno);
 						java.util.Date today = new java.util.Date();
 						java.sql.Date sqlDate = new java.sql.Date(today.getTime());
 						System.out.println(sqlDate);
 						if (memHash.containsKey(memPhno)) {
-							System.out.println("Member is already available");
+
+							TransServ transserv = new TransServImpl();
+							transHash = transserv.display(memId);
+
+							System.out.println("kaushik" + transHash);
+							if (transHash.isEmpty()) {
+
+								System.out.println("Enter Book Name");
+								String bookName = sc1.next();
+
+								// book exist
+								if (bookHash.containsKey(bookName)) {
+
+									Book book = bookHash.get(bookName);
+
+									int bookId = book.getBk_id();
+
+									System.out.println("Book is exist");
+
+									String memberId = member.getMem_id();
+
+									Transaction trans = new Transaction(bookId, memberId, "Lending");
+									transserv.CreateTrans(trans);
+
+									transHash.add(trans);
+								}
+								// book not exist
+								else {
+									System.out.println("book not exist");
+									continue;
+								}
+							}
+							// transaction cache not empty
+							else {
+
+								Transaction trans = null;
+								for (Transaction transaction : transHash) {
+									trans = transaction;
+								}
+								System.out.println(trans);
+								String status = trans.getMem_status();
+								if (status.equals("Return")) {
+									// book exist
+									System.out.println("Enter Book Name");
+									String bookName = sc1.next();
+									if (bookHash.containsKey(bookName)) {
+
+										Book book = bookHash.get(bookName);
+										int bookId = book.getBk_id();
+										System.out.println("Book is exist");
+
+										String memberId = member.getMem_id();
+
+										Transaction transaction = new Transaction(bookId, memberId, "Lending");
+										transserv.CreateTrans(transaction);
+										transHash.add(transaction);
+
+									}
+									// book not exist
+									else {
+										System.out.println("Book is not available");
+									}
+								} else if (status.equals("Lending")) {
+									System.out.println("Do you want to return a book?");
+									String ch = sc1.next();
+									if (ch.equals("Y") || ch.equals("y")) {
+										System.out.println("inside");
+										int bookId = trans.getBk_id();
+										String memberId = member.getMem_id();
+
+										Transaction transaction = new Transaction(bookId, memberId, "Return");
+										transserv.CreateTrans(transaction);
+										transHash.add(transaction);
+										System.out.println(transHash);
+									} else {
+										break;
+									}
+								}
+
+							}
+
 						} else {
 
-//							
-							System.out.println("Member inserted successfully");
-							// System.out.println(prodCache);
+							System.out.println("Member Does not Exist");
+
 						}
 
 					} catch (Exception e) {
