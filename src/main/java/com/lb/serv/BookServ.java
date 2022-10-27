@@ -15,6 +15,8 @@ public interface BookServ {
 
 	public int getLastBookId();
 
+	public Book getBookNameById(int bookId);
+
 	boolean isCacheEmpty();
 	// void create(Book book);
 

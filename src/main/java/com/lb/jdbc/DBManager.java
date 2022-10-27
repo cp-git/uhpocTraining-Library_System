@@ -119,7 +119,7 @@ public class DBManager {
 		for (int i = 0; i < maxCon; i++) {
 			Connection con = conManager.get(0);
 			conManager.remove(0);
-			System.out.println(conManager.size());
+			// System.out.println(conManager.size());
 			try {
 				con.close();
 			} catch (SQLException e) {
@@ -131,6 +131,6 @@ public class DBManager {
 	}
 
 	private void printConSize() {
-		System.out.println(" Available Connection ... " + conManager.size());
+		// System.out.println(" Available Connection ... " + conManager.size());
 	}
 }

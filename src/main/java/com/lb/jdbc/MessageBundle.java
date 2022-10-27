@@ -14,7 +14,7 @@ public class MessageBundle {
 
 	private void loadBundle() {
 		try {
-			System.out.println("Inside Load bundle");
+			// System.out.println("Inside Load bundle");
 //			rb = ResourceBundle.getBundle(RESOURCE_BUNDLE, new Locale("en_IN"), this.getClass().getClassLoader());
 			rb = ResourceBundle.getBundle(RESOURCE_BUNDLE);
 		} catch (Exception exp) {
@@ -30,7 +30,7 @@ public class MessageBundle {
 		if (null == mb) {
 			mb = new MessageBundle();
 		}
-		System.out.println(mb);
+		// System.out.println(mb);
 		return mb;
 	}
 }

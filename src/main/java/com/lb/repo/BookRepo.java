@@ -20,13 +20,13 @@ public class BookRepo {
 	ResultSet rs = null;
 
 	public static void main(String args[]) {
-
-		BookRepo bookRepo = new BookRepo();
-		System.out.println(bookRepo.getLastBookId());
+//
+//		BookRepo bookRepo = new BookRepo();
+//		System.out.println(bookRepo.getLastBookId());
 	}
 
 	public int insertBook(Book book) {
-		System.out.println("inside insertbook in bookrepo");
+		// System.out.println("inside insertbook in bookrepo");
 		DBManager dbm = null;
 		int bookId = 0;
 		try {
@@ -55,24 +55,38 @@ public class BookRepo {
 		return bookId;
 	}
 
-//public int getBookId(int bk_id) throws CPException, SQLException {
-//	
-//		dbm = DBManager.getDBManager();
-//		con = dbm.getConnection();
-//		stmt = con.createStatement();
-//		
-//		rs = stmt.executeQuery("select bk_id from book " );
-//	
-//	while(rs.next())
-//	{
-//			int BookId = rs.getInt("bk_id");
-//
-///
-//
-//			
-//		return BookId;
-//	}
-//	return 0;
+	public Book getBookNameById(int bkId) {
+
+		String getQuery = "SELECT * FROM book where bk_id = " + bkId + "";
+
+		Book book = null;
+
+		try {
+			dbm = DBManager.getDBManager();
+			con = dbm.getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(getQuery);
+
+			while (rs.next()) {
+
+				String bookName = rs.getString("bk_name");
+				String bookAuthor = rs.getString("bk_author");
+
+				book = new Book(bookName, bookAuthor);
+
+			}
+		} catch (CPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbm.closeConnection(con);
+		}
+		return book;
+
+	}
 
 	public int getLastBookId() {
 		int bkId;
@@ -120,7 +134,6 @@ public class BookRepo {
 				Book bk = new Book(bkId, bookName, bookAuthor);
 
 				bookList.add(bk);
-				// System.out.println(customer);
 
 			} // while--Loop Close
 

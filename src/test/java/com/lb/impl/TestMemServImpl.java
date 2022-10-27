@@ -43,18 +43,19 @@ public class TestMemServImpl {
 		con = dbm.getConnection();
 	}
 
-//	@Test
-//	public HashMap<Long, Member> display() {
-//
-//		Member mem = new Member("MEM009", "kaushik", "kharadi", " vimannagar", " pune", 7038956565);
-//
-//		memList = memServ.getMemberDetails();
-//
-//		Member member = memList.get(0);
-//		assertEquals(member.getMem_id(), member.getMem_name(), member.getMem_phno());
-//		// assertEquals(member.getMem_phno());
-//
-//	}
+	@Test
+	public void display() {
+
+		Member mem = new Member("MEM009", "kaushik", "kharadi", " vimannagar", " pune", 7038956565L);
+
+		memList = memServ.getMemberDetails();
+
+		Member member = memList.get(0);
+		assertEquals(member.getMem_id(), mem.getMem_id());
+		assertEquals(member.getMem_phno(), mem.getMem_phno());
+		assertEquals(member.getMem_addrs(), mem.getMem_addrs());
+
+	}
 
 	@Test
 	public void testmemHash() {

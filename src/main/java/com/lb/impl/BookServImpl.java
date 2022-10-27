@@ -30,6 +30,11 @@ public class BookServImpl implements BookServ {
 		return bookRepo.getBookDetails();
 	}
 
+	public Book getBookNameById(int bkId) {
+		return bookRepo.getBookNameById(bkId);
+
+	}
+
 	public int createBook(Book book) {
 
 		BookRepo bookRepo = new BookRepo();

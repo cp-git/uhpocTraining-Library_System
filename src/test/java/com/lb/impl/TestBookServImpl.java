@@ -43,25 +43,28 @@ public class TestBookServImpl {
 		con = dbm.getConnection();
 	}
 
-//	@Test
-//	public List<Book> getBookDetails() {
-//		Book book = new Book("harry", "potter");
-//
-//		bookList = bookServ.getBookDetails();
-//
-//		Book bk = bookList.get(0);
-//		assertEquals(bk.getBk_name(), bk.getBk_author());
-//		// equals(bk.getBk_id());
-//		assertEquals(bk.getBk_id());
-//
-//	}
+	@Test
+	public void testGetBookDetails() {
+
+		bookList = bookServ.getBookDetails();
+		Book book = bookList.get(0);
+
+		Book bk = new Book(1, "abc", "xyz");
+
+		assertEquals(bk.getBk_name(), book.getBk_name());
+		assertEquals(bk.getBk_author(), book.getBk_author());
+
+	}
 
 	@Test
-	public void testBookHash() {
+	public void testdisplay1() {
 
 		HashMap<String, Book> bookHash = bookServ.display1();
 		Book bk = bookHash.get("harry");
-		assertEquals(bk.getBk_name(), bk.getBk_author());
+
+		Book book = new Book(21, "harry", "potter");
+		assertEquals(bk.getBk_name(), book.getBk_name());
+		assertEquals(bk.getBk_author(), book.getBk_author());
 
 	}
 
