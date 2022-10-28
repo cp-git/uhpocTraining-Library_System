@@ -70,6 +70,7 @@ public class TestMemServImpl {
 	@After
 	public void tearDown() throws Exception {
 		dbm.closeConnection(con);
+		System.gc();
 	}
 
 }

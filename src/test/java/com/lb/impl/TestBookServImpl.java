@@ -71,6 +71,7 @@ public class TestBookServImpl {
 	@After
 	public void tearDown() throws Exception {
 		dbm.closeConnection(con);
+		System.gc();
 	}
 
 }

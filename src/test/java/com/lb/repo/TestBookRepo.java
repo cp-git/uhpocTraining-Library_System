@@ -19,8 +19,8 @@ import com.lb.serv.BookServ;
 
 public class TestBookRepo {
 
-	private static BookRepo bookRepo;
-	private static BookServ bookServ;
+	static BookRepo bookRepo;
+	static BookServ bookServ;
 	static HashMap<String, Book> BookHash = null;
 	static DBManager dbm = null;
 	static Connection con = null;
@@ -52,29 +52,24 @@ public class TestBookRepo {
 	}
 
 //
-//	@Test
-//
-//	public List<Book> getBookDetails() {
-//		Book book = new Book("harry", "potter");
-//
-//		try {
-//			bookList = bookServ.getBookDetails();
-//			Book Bk = bookList.get(0);
-//			assertEquals(book.getBk_id());
-//
-//		} catch (CPException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//	}
-
-//
 	@Test
-	public void BookHash() {
+
+	public void getBookDetails() {
+		Book book = new Book("harry", "potter");
+		book.getBk_name();
+		bookList = bookServ.getBookDetails();
+		Book Bk = bookList.get(0);
+		// assertEquals(book.getBk_id());
+
+	}
+
+	@Test
+	public void TestBookHash() {
 
 		Book book = new Book("harry", "potter");
-
+		book.getBk_name();
+		book.getBk_author();
+		System.out.println(book);
 		HashMap<String, Book> bookHash = bookServ.display1();
 
 		Book bk = bookHash.get("harry");

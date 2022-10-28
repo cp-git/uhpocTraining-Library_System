@@ -46,6 +46,11 @@ public class Transaction {
 		this.mem_status = mem_status;
 	}
 
+	//////////////////////////////////////
+	public Transaction(int trans_id2, int bk_id2, String mem_id2, String mem_status2, java.util.Date date) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getTrans_id() {
 		return trans_id;
 	}

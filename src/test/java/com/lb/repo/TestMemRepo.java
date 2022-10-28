@@ -46,11 +46,6 @@ public class TestMemRepo {
 		con = dbm.getConnection();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		dbm.closeConnection(con);
-	}
-
 	@Test
 
 	public void getMemberDetails() {
@@ -81,6 +76,12 @@ public class TestMemRepo {
 		// assertEquals(member.getMem_phno(),
 		// member.getMem_addrs(),member.getMem_addrs2());
 
+	}
+
+	@After
+	public void tearDown() {
+		dbm.closeConnection(con);
+		System.gc();
 	}
 
 }

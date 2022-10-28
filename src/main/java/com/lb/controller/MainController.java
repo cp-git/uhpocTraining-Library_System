@@ -30,7 +30,6 @@ public class MainController {
 		// TransServ transserv = new TransServImpl();
 
 		memHash = memServ.display();
-//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@");
 		// System.out.println(memHash);
 
 		bookHash = bookServ.display1();
@@ -76,7 +75,7 @@ public class MainController {
 						} else {
 							Book book = new Book(bookName, bookAuthor);
 
-							int bookId = bookServ.createBook(book);
+							// int bookId = bookServ.createBook(book);
 //							System.out.println(book);
 //							System.out.println(bookId);
 //							book.setBk_id(bookId);
@@ -170,6 +169,7 @@ public class MainController {
 
 						BookServ bookServ = new BookServImpl();
 						System.out.println("Enter Member ID");
+
 						String memId = sc1.next();
 						System.out.println("Enter Member PhoneNumber");
 						long memPhno = sc1.nextLong();
